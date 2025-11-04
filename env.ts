@@ -26,7 +26,8 @@ const envSchema = z.object({
  BCRYPT_ROUNDS: z.coerce.number().min(10).max(20).default(12),
 })
 
-//zod to ts 
+//zod to ts- 
+
 export type Env = z.infer<typeof envSchema>
 
 //ts types to env
