@@ -9,8 +9,7 @@ import {
 } from 'drizzle-orm/pg-core'
 
 import { relations } from 'drizzle-orm'
-import { email } from 'zod'
-import { create } from 'domain'
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 
 export const users = pgTable('users', {
   //id will be in ORM : uuid('id') will be in DB
@@ -121,3 +120,15 @@ export const habitTagsRelations = relations(habitTags, ({ one }) => ({
     references: [tags.id],
   }),
 }))
+
+//create a TypeScript types by tables
+export type User = typeof users.$inferSelect
+export type Habit = typeof habits.$inferSelect
+export type Entry = typeof entries.$inferSelect
+export type Tag = typeof tags.$inferSelect
+export type HabitTag = typeof habitTags.$inferSelect
+
+// Validates data before inserting into "users" (no id, only user input)
+export const insertUserSchema = createInsertSchema(users)
+// Validates data selected from DB (includes id, timestamps, all fields)
+export const selectUserSchema = createInsertSchema(users)
