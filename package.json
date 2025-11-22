@@ -5,8 +5,13 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "node --watch src/index.ts",
     "start": "node src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "node src/db/seed.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
@@ -33,7 +38,8 @@
     "jose": "^6.0.12",
     "morgan": "^1.10.1",
     "pg": "^8.16.3",
-    "zod": "^4.1.12"
+    "ts-node": "^10.9.2",
+    "zod": "^4.0.17"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -45,8 +51,7 @@
     "cross-env": "^10.0.0",
     "drizzle-kit": "^0.31.4",
     "supertest": "^6.3.4",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.20.6",
+    "tsx": "^4.20.4",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   }

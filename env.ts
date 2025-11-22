@@ -58,8 +58,6 @@ try {
   throw e
 }
 
-
-
 //app stage helpers
 export const isProd = () => env.APP_STAGE === 'production'
 export const isDev = () => env.APP_STAGE === 'dev'  

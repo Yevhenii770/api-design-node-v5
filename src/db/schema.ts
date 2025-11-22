@@ -18,11 +18,11 @@ export const users = pgTable('users', {
   email: varchar('email', { length: 255 }).notNull().unique(),
   username: varchar('username', { length: 50 }).notNull().unique(),
   password: varchar('password', { length: 255 }).notNull(),
-  firstName: varchar('first_name', { length: 50 }).notNull(),
-  lastName: varchar('last_name', { length: 50 }).notNull(),
+ firstName: varchar('first_name', { length: 50 }),
+  lastName: varchar('last_name', { length: 50 }),
   // defaultNow will set the default value to the current timestamp
-  createdAt: timestamp('created_at').notNull().defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow().notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 })
 
 export const habits = pgTable('habits', {
@@ -123,6 +123,7 @@ export const habitTagsRelations = relations(habitTags, ({ one }) => ({
 
 //create a TypeScript types by tables
 export type User = typeof users.$inferSelect
+export type NewUser = typeof users.$inferInsert
 export type Habit = typeof habits.$inferSelect
 export type Entry = typeof entries.$inferSelect
 export type Tag = typeof tags.$inferSelect
@@ -131,4 +132,4 @@ export type HabitTag = typeof habitTags.$inferSelect
 // Validates data before inserting into "users" (no id, only user input)
 export const insertUserSchema = createInsertSchema(users)
 // Validates data selected from DB (includes id, timestamps, all fields)
-export const selectUserSchema = createInsertSchema(users)
+export const selectUserSchema = createSelectSchema(users)
